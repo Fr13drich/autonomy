@@ -13,7 +13,8 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - run: return 1
-      - run : echo "error"
+      - run: 
+          command: echo "error"
           when: on_fail
   display_workflow_id:
     docker:
