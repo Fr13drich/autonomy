@@ -15,6 +15,12 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - run: echo "world"
+  print-myname:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: echo $MYNAME
+
   say-hello:
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
@@ -31,12 +37,12 @@ jobs:
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
   myWorkflow:
     jobs:
       - print-hello
       - print-world:
           requires:
             - print-hello
+      - print-myname:
+          requires:
+            - print-world
